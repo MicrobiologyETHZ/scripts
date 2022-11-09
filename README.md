@@ -2,9 +2,9 @@
 
 | Script | Description |
 | ------ | ----------- |
-| ab12fastq.py | Converts ab1 Sanger sequencing files to fastq |
-| assembly_stats.py | Summarises (meta)genome assembly statistics |
-| demultiplex.py | Demultiplex illumina reads |
+| [ab12fastq.py](https://github.com/MicrobiologyETHZ/scripts#ab12fastqpy) | Converts ab1 Sanger sequencing files to fastq |
+| [assembly_stats.py](https://github.com/MicrobiologyETHZ/scripts#assembly_statspy) | Summarises (meta)genome assembly statistics |
+| [demultiplex.py](https://github.com/MicrobiologyETHZ/scripts#demultiplexpy) | Demultiplex illumina reads |
 
 ## ab12fastq.py
 
