@@ -6,6 +6,7 @@ if True:
     parser = argparse.ArgumentParser(description='Extract nucleotide and/or protein sequences from GlimmerHMM output')
     parser.add_argument('contigs',metavar='contigs_file',help='File containing contigs in fasta format')
     parser.add_argument('gff',metavar='gff_file',help='GFF file with gene predictions')
+    parser.add_argument('--euk', help='Organism is eukaryotic and mRNA will need to be concatenated')
     parser.add_argument('-p','--prefix',metavar='prefix',help='Output file prefix')
 
     args = parser.parse_args()
@@ -24,16 +25,20 @@ if True:
         for record in gff.readlines():
             if record[0] != "#":
                 fields = record.split("\t")
-                if fields[2] == "mRNA":
-                    if strand == "+":
-                        mrnas[name] = subseq 
+                if args.euk:
+                    if fields[2] == "mRNA":
+                        if strand == "+":
+                            mrnas[name] = subseq 
+                        else:
+                            mrnas[name] = subseq.reverse_complement()
+                        name = "{}_{}:{}".format(fields[0],fields[3],fields[4])
+                        strand = fields[6]
+                        subseq = Seq.Seq("") 
                     else:
-                        mrnas[name] = subseq.reverse_complement()
-                    name = "{}_{}:{}".format(fields[0],fields[3],fields[4])
-                    strand = fields[6]
-                    subseq = Seq.Seq("") 
-                else:
-                    subseq = subseq + sequences[fields[0]].seq[(int(fields[3])-1):int(fields[4])]
+                        subseq = subseq + sequences[fields[0]].seq[(int(fields[3])-1):int(fields[4])]
+                if fields[2] == "CDS":
+                    name = "{}_{}:{}_{}".format(fields[0],fields[3],fields[4],fields[8])
+                    mrnas[name] = sequences[fields[0]].seq[(int(fields[3])-1):int(fields[4])]
 
     # Output
     with open(args.prefix+".fna",'w') as fo:
