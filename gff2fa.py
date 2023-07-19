@@ -1,8 +1,7 @@
-import argparse, os, subprocess
+import argparse
 from Bio import Seq, SeqIO
 
-if True:
-#def __main__():
+def __main__():
     parser = argparse.ArgumentParser(description='Extract nucleotide and/or protein sequences from GlimmerHMM output')
     parser.add_argument('contigs',metavar='contigs_file',help='File containing contigs in fasta format')
     parser.add_argument('gff',metavar='gff_file',help='GFF file with gene predictions')
@@ -48,6 +47,6 @@ if True:
         for k,v in mrnas.items():
             fo.write(">{}\n{}\n".format(k,v.translate()))
 
-#if __name__ == "__main__":
-#    __main__()
+if __name__ == "__main__":
+    __main__()
 
