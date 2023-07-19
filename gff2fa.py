@@ -1,4 +1,4 @@
-import argparse
+import argparse, os
 from Bio import Seq, SeqIO
 
 def __main__():
