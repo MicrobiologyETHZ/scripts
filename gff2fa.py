@@ -24,7 +24,7 @@ if True:
     with open(args.gff,'r') as gff:
         for record in gff.readlines():
             if record[0] != "#":
-                fields = record.split("\t")
+                fields = record.strip().split("\t")
                 if args.euk:
                     if fields[2] == "mRNA":
                         if strand == "+":
